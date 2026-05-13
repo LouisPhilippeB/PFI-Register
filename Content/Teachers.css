@@ -1,0 +1,81 @@
+﻿.TeacherListLayout {
+    display: grid;
+    grid-template-columns: 45px 120px auto;
+    height: 44px;
+    text-align: left !important;
+    align-items: center;
+    font-size: larger;
+    cursor: pointer;
+    padding-left: 6px;
+    border-radius: 6px;
+    font-family: 'Times New Roman';
+    text-decoration: none !important;
+    color: black;
+}
+
+.TeacherListLayout:hover {
+    background-color: azure;
+}
+
+.teacherCode {
+    color: blue;
+    font-family: Consolas;
+    font-size: 16px;
+}
+
+.TeacherLink {
+    text-decoration: none;
+    color: dodgerblue;
+}
+
+.TeacherSmallAvatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 20px;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+.TeacherMediumAvatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 45px;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+.TeacherBigAvatar {
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+.teacherInfos {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px;
+    font-size: 1.05em;
+}
+
+.teacherInfos div {
+    margin-left: 0px;
+}
+
+.teacherForm {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.teacherAllocations {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}

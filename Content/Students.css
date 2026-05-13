@@ -1,0 +1,62 @@
+﻿.StudentListLayout {
+    display: grid;
+    grid-template-columns: auto auto;
+    height: 30px;
+    align-items: center;
+    font-size: larger;
+    cursor: pointer;
+    padding-left: 6px;
+    border-radius: 6px;
+    font-family: 'Times New Roman';
+}
+
+.StudentListLayout a {
+    text-decoration: none;
+    color: black;
+}
+
+.StudentListLayout:hover {
+    background-color: azure;
+}
+
+.StudentListLayout .icon {
+    display: none !important;
+}
+
+.StudentListLayout:hover .icon {
+    display: block !important;
+}
+
+.studentCode {
+    color: blue;
+    font-family: Consolas;
+    margin-right: 8px;
+}
+
+.studentName {
+    color: black;
+}
+
+.studentInfos {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px;
+    font-size: 1.05em;
+}
+
+.studentInfos div {
+    margin-left: 0px;
+}
+
+.studentForm {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.studentRegistrations {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
