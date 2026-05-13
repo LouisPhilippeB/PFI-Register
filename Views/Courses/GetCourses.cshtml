@@ -1,0 +1,26 @@
+@model IEnumerable<Models.Course>
+@{
+    List<int> sessionsList = Session["CoursesSessionsList"] == null ? new List<int>() : ((List<int>)Session["CoursesSessionsList"]).OrderBy(i => i).ToList();
+}
+
+@foreach (int session in sessionsList)
+{
+    var courses = Model.Where(c => c.Session == session).OrderBy(c => c.Code).ToList();
+
+    if (courses.Count > 0)
+    {
+        <details id="course_details_@session" open>
+            <summary>Session @session</summary>
+
+            @foreach (var item in courses)
+            {
+                <div class="CoursesListLayout">
+                    <a href="@Url.Action("Details", new { id = item.Id })">
+                        <span class="courseCode courseSearchTarget">@item.Code</span>
+                        <span class="courseTitle courseSearchTarget">@item.Title</span>
+                    </a>
+                </div>
+            }
+        </details>
+    }
+}

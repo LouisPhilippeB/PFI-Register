@@ -1,0 +1,21 @@
+@model Models.Course
+@{
+    ViewBag.Title = "Ajouter cours";
+}
+
+<div class="pageTitle">
+    Ajouter un cours
+    <a href="/Courses/List" title="Retour">
+        <span class="cmdIcon fa fa-arrow-left"></span>
+    </a>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.Partial("CourseForm", Model)
+
+    <div class="formButtons">
+        <a href="/Courses/List" class="btn btn-secondary">Annuler</a>
+        <input type="submit" value="Enregistrer" class="btn btn-primary" />
+    </div>
+}

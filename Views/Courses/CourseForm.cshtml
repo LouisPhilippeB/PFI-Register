@@ -1,0 +1,34 @@
+@model Models.Course
+@{
+    bool creating = Model.Id == 0;
+}
+
+<div class="courseForm">
+    <fieldset>
+        <legend>Informations</legend>
+
+        <label>Sigle</label>
+        @if (creating)
+        {
+            @Html.TextBoxFor(model => model.Code, new { @class = "form-control" })
+        }
+        else
+        {
+            <input type="text" class="form-control" value="@Model.Code" disabled />
+        }
+
+        <label>Titre</label>
+        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+
+        <label>Session</label>
+        @Html.TextBoxFor(model => model.Session, new { @class = "form-control", type = "number", min = "1", max = "6" })
+    </fieldset>
+
+    @if (!creating)
+    {
+        <fieldset>
+            <legend>Étudiants inscrits - @Models.NextSession.Caption</legend>
+            @Helper.SelectionLists("selectedStudentsId", (SelectList)ViewBag.Registrations, (SelectList)ViewBag.Students)
+        </fieldset>
+    }
+</div>

@@ -1,0 +1,29 @@
+@model Models.Teacher
+@{
+    var years = Model.Allocations.Select(a => a.Year).Distinct().OrderByDescending(y => y).ToList();
+}
+
+<fieldset>
+    <legend>Allocations</legend>
+
+    @foreach (int year in years)
+    {
+        var allocations = Model.Allocations.Where(a => a.Year == year).OrderBy(a => a.Course.Session).ThenBy(a => a.Course.Code).ToList();
+
+        <details id="teacher_allocations_details_@year" open>
+            <summary>@year</summary>
+
+            @foreach (var allocation in allocations)
+            {
+                if (allocation.Course != null)
+                {
+                    <div class="teacherAllocations">
+                        <a class="entityLink" href="/Courses/Details/@allocation.Course.Id">
+                            [@allocation.Course.Session] @allocation.Course.Code @allocation.Course.Title
+                        </a>
+                    </div>
+                }
+            }
+        </details>
+    }
+</fieldset>

@@ -1,0 +1,13 @@
+@model Models.Student
+
+<fieldset>
+    <legend>Informations</legend>
+    <div class="studentInfos">
+        <div><b>Code :</b> @Model.Code</div>
+        <div><b>Nom :</b> @Model.LastName</div>
+        <div><b>Prénom :</b> @Model.FirstName</div>
+        <div><b>Date de naissance :</b> @Model.BirthDate.ToString("yyyy-MM-dd")</div>
+        <div><b>Courriel :</b> @Model.Email</div>
+        <div><b>Téléphone :</b> @Model.Phone</div>
+    </div>
+</fieldset>

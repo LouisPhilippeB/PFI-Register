@@ -1,0 +1,21 @@
+@model Models.Teacher
+@{
+    ViewBag.Title = "Ajouter professeur";
+}
+
+<div class="pageTitle">
+    Ajouter un professeur
+    <a href="/Teachers/List" title="Retour">
+        <span class="cmdIcon fa fa-arrow-left"></span>
+    </a>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.Partial("TeacherForm", Model)
+
+    <div class="formButtons">
+        <a href="/Teachers/List" class="btn btn-secondary">Annuler</a>
+        <input type="submit" value="Enregistrer" class="btn btn-primary" />
+    </div>
+}

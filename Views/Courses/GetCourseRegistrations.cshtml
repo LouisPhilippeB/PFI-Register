@@ -1,0 +1,43 @@
+@model Models.Course
+@{
+    var years = Model.Registrations
+        .Where(r => r.Student != null)
+        .Select(r => r.Student.Year)
+        .Distinct()
+        .OrderByDescending(y => y)
+        .ToList();
+
+    var currentTeacher = Model.CurrentSessionTeacher;
+}
+
+<fieldset>
+    <legend>Inscriptions</legend>
+
+    @foreach (int year in years)
+    {
+        var registrations = Model.Registrations
+            .Where(r => r.Student != null && r.Student.Year == year)
+            .OrderBy(r => r.Student.LastName)
+            .ThenBy(r => r.Student.FirstName)
+            .ToList();
+
+        <details id="course_registrations_details_@year" open>
+            <summary>
+                Cohorte @year
+                @if (currentTeacher != null)
+                {
+                    <span> - </span><a class="TeacherLink" href="/Teachers/Details/@currentTeacher.Id">@currentTeacher.FullName</a>
+                }
+            </summary>
+
+            @foreach (var registration in registrations)
+            {
+                <div class="courseRegistrations">
+                    <a class="entityLink" href="/Students/Details/@registration.Student.Id">
+                        @registration.Student.Code @registration.Student.LastName @registration.Student.FirstName
+                    </a>
+                </div>
+            }
+        </details>
+    }
+</fieldset>

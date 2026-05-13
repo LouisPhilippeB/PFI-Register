@@ -1,0 +1,39 @@
+@model Models.Student
+@{
+    bool creating = Model.Id == 0;
+}
+
+<div class="studentForm">
+    <fieldset>
+        <legend>Informations</legend>
+
+        @if (!creating)
+        {
+            <label>Code</label>
+            <input type="text" class="form-control" value="@Model.Code" disabled />
+        }
+
+        <label>Prénom</label>
+        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+
+        <label>Nom</label>
+        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+
+        <label>Date de naissance</label>
+        @Html.TextBoxFor(model => model.BirthDate, "{0:yyyy-MM-dd}", new { @class = "form-control datepicker" })
+
+        <label>Courriel</label>
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+
+        <label>Téléphone</label>
+        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control phone" })
+    </fieldset>
+
+    @if (!creating)
+    {
+        <fieldset>
+            <legend>@Models.NextSession.Caption</legend>
+            @Helper.SelectionLists("selectedCoursesId", (SelectList)ViewBag.Registrations, (SelectList)ViewBag.Courses)
+        </fieldset>
+    }
+</div>

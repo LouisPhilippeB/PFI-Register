@@ -1,0 +1,14 @@
+@model Models.Teacher
+
+<fieldset>
+    <legend>Informations</legend>
+    <div class="teacherInfos">
+        <div class="TeacherMediumAvatar" style="background:url('@Model.Avatar')"></div>
+        <div><b>Code :</b> @Model.Code</div>
+        <div><b>Nom :</b> @Model.LastName</div>
+        <div><b>Prénom :</b> @Model.FirstName</div>
+        <div><b>Date d'embauche :</b> @Model.StartDate.ToString("yyyy-MM-dd")</div>
+        <div><b>Courriel :</b> @Model.Email</div>
+        <div><b>Téléphone :</b> @Model.Phone</div>
+    </div>
+</fieldset>

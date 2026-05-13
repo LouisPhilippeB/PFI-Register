@@ -1,0 +1,39 @@
+@{
+    ViewBag.Title = "Session courante";
+}
+
+<div class="pageTitle">
+    Session courante
+    <a href="/Students/List" title="Retour">
+        <span class="cmdIcon fa fa-arrow-left"></span>
+    </a>
+</div>
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Choisissez l'année et la session pour les prochaines allocations de cours</legend>
+
+        <label>Année</label>
+        <input type="number" name="year" class="form-control" value="@ViewBag.Year" min="2020" max="2100" />
+
+        <fieldset>
+            <legend>Session</legend>
+
+            <label>
+                <input type="radio" name="session" value="Automne" @(ViewBag.Session == "Automne" ? "checked" : "") />
+                Automne
+            </label>
+
+            <label>
+                <input type="radio" name="session" value="Hiver" @(ViewBag.Session == "Hiver" ? "checked" : "") />
+                Hiver
+            </label>
+        </fieldset>
+    </fieldset>
+
+    <div class="formButtons">
+        <a href="/Students/List" class="btn btn-secondary">Annuler</a>
+        <input type="submit" value="Enregistrer" class="btn btn-primary" />
+    </div>
+}

@@ -1,0 +1,29 @@
+@model Models.Student
+@{
+    var years = Model.Registrations.Select(r => r.Year).Distinct().OrderByDescending(y => y).ToList();
+}
+
+<fieldset>
+    <legend>Inscriptions</legend>
+
+    @foreach (int year in years)
+    {
+        var registrations = Model.Registrations.Where(r => r.Year == year).OrderBy(r => r.Course.Session).ThenBy(r => r.Course.Code).ToList();
+
+        <details id="student_registrations_details_@year" open>
+            <summary>@year</summary>
+
+            @foreach (var registration in registrations)
+            {
+                if (registration.Course != null)
+                {
+                    <div class="studentRegistrations">
+                        <a class="entityLink" href="/Courses/Details/@registration.Course.Id">
+                            [@registration.Course.Session] @registration.Course.Code @registration.Course.Title
+                        </a>
+                    </div>
+                }
+            }
+        </details>
+    }
+</fieldset>

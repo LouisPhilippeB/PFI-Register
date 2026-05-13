@@ -1,0 +1,34 @@
+@model Models.Course
+@{
+    ViewBag.Title = "Détails cours";
+
+    bool canWrite = Models.User.ConnectedUser != null && Models.User.ConnectedUser.Access >= Models.Access.Write;
+}
+
+<div class="pageTitle">
+    Cours
+    <a href="/Courses/List" title="Retour">
+        <span class="cmdIcon fa fa-arrow-left"></span>
+    </a>
+    @if (canWrite)
+    {
+        <a href="/Courses/Edit/@Model.Id" title="Modifier">
+            <span class="cmdIcon fa fa-edit"></span>
+        </a>
+        <a href="#" title="Supprimer" onclick="courseDetailsPanel.confirmedCommand('Supprimer ce cours, ses inscriptions et ses allocations?', '/Courses/Delete/@Model.Id'); return false;">
+            <span class="cmdIcon fa fa-trash"></span>
+        </a>
+    }
+</div>
+
+<div id="courseDetailsPanel"></div>
+<div id="courseRegistrationsPanel"></div>
+
+@section Scripts {
+    <script>
+        let courseDetailsPanel = new AutoRefreshedPanel("courseDetailsPanel", "/Courses/GetCourseDetails", 5);
+        let courseRegistrationsPanel = new AutoRefreshedPanel("courseRegistrationsPanel", "/Courses/GetCourseRegistrations", 5, function () {
+            RestoreDetailsState();
+        });
+    </script>
+}

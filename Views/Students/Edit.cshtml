@@ -1,0 +1,21 @@
+@model Models.Student
+@{
+    ViewBag.Title = "Modifier étudiant";
+}
+
+<div class="pageTitle">
+    Modifier un étudiant
+    <a href="/Students/Details/@Model.Id" title="Retour">
+        <span class="cmdIcon fa fa-arrow-left"></span>
+    </a>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.Partial("StudentForm", Model)
+
+    <div class="formButtons">
+        <a href="/Students/Details/@Model.Id" class="btn btn-secondary">Annuler</a>
+        <input type="submit" value="Enregistrer" class="btn btn-primary" />
+    </div>
+}

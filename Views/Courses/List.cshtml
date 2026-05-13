@@ -1,0 +1,36 @@
+@{
+    ViewBag.Title = "Cours";
+    bool search = Session["CourseSearch"] != null && (bool)Session["CourseSearch"];
+    string searchString = Session["CourseSearchString"] == null ? "" : (string)Session["CourseSearchString"];
+    bool canWrite = Models.User.ConnectedUser != null && Models.User.ConnectedUser.Access >= Models.Access.Write;
+}
+
+<div class="pageTitle">
+    Cours
+    <a href="/Courses/Search" title="Recherche">
+        <span class="cmdIcon fa fa-search"></span>
+    </a>
+    @if (canWrite)
+    {
+        <a href="/Courses/Create" title="Ajouter">
+            <span class="cmdIcon fa fa-plus"></span>
+        </a>
+    }
+</div>
+
+@if (search)
+{
+    <div class="searchPanel">
+        <input id="courseSearchInput" type="text" class="form-control" placeholder="Recherche" value="@searchString" onkeyup="setCourseSearchString(this.value); coursesPanel.refresh(true);" />
+    </div>
+}
+
+<div id="coursesPanel"></div>
+
+@section Scripts {
+    <script>let coursesPanel = new AutoRefreshedPanel("coursesPanel", "/Courses/GetCourses", 5, function () {
+            let value = $("#courseSearchInput").length ? $("#courseSearchInput").val() : "";
+            highlightAll(value, "courseSearchTarget");
+            RestoreDetailsState();
+        });</script>
+}

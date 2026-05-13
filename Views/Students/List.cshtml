@@ -1,0 +1,45 @@
+@{
+    ViewBag.Title = "Étudiants";
+    bool search = Session["StudentSearch"] != null && (bool)Session["StudentSearch"];
+    string searchString = Session["StudentSearchString"] == null ? "" : (string)Session["StudentSearchString"];
+    int selectedYear = Session["SelectedStudentYear"] == null ? 0 : (int)Session["SelectedStudentYear"];
+    List<int> years = Session["StudentsYearsList"] == null ? new List<int>() : (List<int>)Session["StudentsYearsList"];
+    bool canWrite = Models.User.ConnectedUser != null && Models.User.ConnectedUser.Access >= Models.Access.Write;
+}
+
+<div class="pageTitle">
+    Étudiants
+    <a href="/Students/Search" title="Recherche">
+        <span class="cmdIcon fa fa-search"></span>
+    </a>
+    @if (canWrite)
+    {
+        <a href="/Students/Create" title="Ajouter">
+            <span class="cmdIcon fa fa-plus"></span>
+        </a>
+    }
+</div>
+
+@if (search)
+{
+    <div class="searchPanel">
+        <input id="studentSearchInput" type="text" class="form-control" placeholder="Recherche" value="@searchString" onkeyup="setStudentSearchString(this.value); studentsPanel.refresh(true);" />
+        <select class="form-control" onchange="setSelectedStudentYear(this.value); studentsPanel.refresh(true);">
+            <option value="0">Toutes les années</option>
+            @foreach (int year in years.OrderByDescending(y => y))
+            {
+                <option value="@year" @(selectedYear == year ? "selected" : "")>@year</option>
+            }
+        </select>
+    </div>
+}
+
+<div id="studentsPanel"></div>
+
+@section Scripts {
+    <script>let studentsPanel = new AutoRefreshedPanel("studentsPanel", "/Students/GetStudents", 5, function () {
+            let value = $("#studentSearchInput").length ? $("#studentSearchInput").val() : "";
+            highlightAll(value, "studentSearchTarget");
+            RestoreDetailsState();
+        });</script>
+}

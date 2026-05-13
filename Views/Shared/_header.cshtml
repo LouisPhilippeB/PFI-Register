@@ -1,0 +1,34 @@
+﻿@{
+    bool canAdmin = Models.User.ConnectedUser != null && Models.User.ConnectedUser.Access >= Models.Access.Admin;
+}
+<div class="headerMenu">
+    <a href="/Students/List">
+        <div class="siteIcon"></div>
+    </a>
+
+    <div class="tabs">
+        <a href="/Students/List" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Students" ? "selectedTab" : "unselectedTab")">Étudiants</a>
+        <span>|</span>
+        <a href="/Courses/List" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Courses" ? "selectedTab" : "unselectedTab")">Cours</a>
+        <span>|</span>
+        <a href="/Teachers/List" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Teachers" ? "selectedTab" : "unselectedTab")">Profs</a>
+    </div>
+
+    <div class="menu">
+        @if (Models.User.ConnectedUser != null)
+        {
+            <a href="/Accounts/EditProfil" title="Profil">
+                <span class="cmdIcon fa fa-user"></span>
+            </a>
+            if (canAdmin)
+            {
+                <a href="/Accounts/ManageUsers" title="Usagers">
+                    <span class="cmdIcon fa fa-users"></span>
+                </a>
+            }
+            <a href="/Accounts/Logout" title="Déconnexion">
+                <span class="cmdIcon fa fa-sign-out"></span>
+            </a>
+        }
+    </div>
+</div>

@@ -1,0 +1,34 @@
+@model Models.Teacher
+@{
+    ViewBag.Title = "Détails professeur";
+
+    bool canWrite = Models.User.ConnectedUser != null && Models.User.ConnectedUser.Access >= Models.Access.Write;
+}
+
+<div class="pageTitle">
+    Professeur
+    <a href="/Teachers/List" title="Retour">
+        <span class="cmdIcon fa fa-arrow-left"></span>
+    </a>
+    @if (canWrite)
+    {
+        <a href="/Teachers/Edit/@Model.Id" title="Modifier">
+            <span class="cmdIcon fa fa-edit"></span>
+        </a>
+        <a href="#" title="Supprimer" onclick="teacherDetailsPanel.confirmedCommand('Supprimer ce professeur et toutes ses allocations?', '/Teachers/Delete/@Model.Id'); return false;">
+            <span class="cmdIcon fa fa-trash"></span>
+        </a>
+    }
+</div>
+
+<div id="teacherDetailsPanel"></div>
+<div id="teacherAllocationsPanel"></div>
+
+@section Scripts {
+    <script>
+        let teacherDetailsPanel = new AutoRefreshedPanel("teacherDetailsPanel", "/Teachers/GetTeacherDetails", 5);
+        let teacherAllocationsPanel = new AutoRefreshedPanel("teacherAllocationsPanel", "/Teachers/GetTeacherAllocations", 5, function () {
+            RestoreDetailsState();
+        });
+    </script>
+}

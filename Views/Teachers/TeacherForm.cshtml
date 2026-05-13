@@ -1,0 +1,42 @@
+@model Models.Teacher
+@{
+    bool creating = Model.Id == 0;
+}
+
+<div class="teacherForm">
+    <fieldset>
+        <legend>Informations</legend>
+
+        @if (!creating)
+        {
+            <label>Code</label>
+            <input type="text" class="form-control" value="@Model.Code" disabled />
+        }
+
+        <label>Prénom</label>
+        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+
+        <label>Nom</label>
+        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+
+        <label>Date d'embauche</label>
+        @Html.TextBoxFor(model => model.StartDate, "{0:yyyy-MM-dd}", new { @class = "form-control datepicker" })
+
+        <label>Courriel</label>
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+
+        <label>Téléphone</label>
+        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control phone" })
+
+        <label>Avatar</label>
+        @Html.TextBoxFor(model => model.Avatar, new { @class = "form-control" })
+    </fieldset>
+
+    @if (!creating)
+    {
+        <fieldset>
+            <legend>Allocations - @Models.NextSession.Caption</legend>
+            @Helper.SelectionLists("selectedCoursesId", (SelectList)ViewBag.Allocations, (SelectList)ViewBag.Courses)
+        </fieldset>
+    }
+</div>

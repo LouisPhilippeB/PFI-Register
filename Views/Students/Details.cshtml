@@ -1,0 +1,34 @@
+@model Models.Student
+@{
+    ViewBag.Title = "Détails étudiant";
+
+    bool canWrite = Models.User.ConnectedUser != null && Models.User.ConnectedUser.Access >= Models.Access.Write;
+}
+
+<div class="pageTitle">
+    Étudiant
+    <a href="/Students/List" title="Retour">
+        <span class="cmdIcon fa fa-arrow-left"></span>
+    </a>
+    @if (canWrite)
+    {
+        <a href="/Students/Edit/@Model.Id" title="Modifier">
+            <span class="cmdIcon fa fa-edit"></span>
+        </a>
+        <a href="#" title="Supprimer" onclick="studentDetailsPanel.confirmedCommand('Supprimer cet étudiant et toutes ses inscriptions?', '/Students/Delete/@Model.Id'); return false;">
+            <span class="cmdIcon fa fa-trash"></span>
+        </a>
+    }
+</div>
+
+<div id="studentDetailsPanel"></div>
+<div id="studentRegistrationsPanel"></div>
+
+@section Scripts {
+    <script>
+        let studentDetailsPanel = new AutoRefreshedPanel("studentDetailsPanel", "/Students/GetStudentDetails", 5);
+        let studentRegistrationsPanel = new AutoRefreshedPanel("studentRegistrationsPanel", "/Students/GetStudentRegistrations", 5, function () {
+            RestoreDetailsState();
+        });
+    </script>
+}
